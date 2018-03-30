@@ -46,7 +46,7 @@ namespace Clientv01
                 // int l = list[0].Length;
                 
                 txtblock.Text += "  " + list[i] + "\n";
-                MessageBox.Show(list[i].Substring(0, 3) + "0001" + list[i].Substring(7, list[i].Length - 7 ));// list[0].Substring(7, 16));
+              //  MessageBox.Show(list[i].Substring(0, 3) + "0001" + list[i].Substring(7, list[i].Length - 7 ));
             }
 
 
