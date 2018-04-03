@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Clientv01"
         mc:Ignorable="d"
-        Title="MainWindow" Height="408" Width="382">
+        Title="Launcher" Height="408" Width="382">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="140*"/>
             <ColumnDefinition Width="47*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="UpdateOTG" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button Content="Download" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
         <TextBlock Name="txtblock" Margin="10,50,10,10" TextWrapping="Wrap" Background="AntiqueWhite" Grid.ColumnSpan="2"/>
 
     </Grid>

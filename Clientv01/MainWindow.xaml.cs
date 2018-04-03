@@ -46,48 +46,58 @@ namespace Clientv01
 
             var ServiceUpdate = new Service.ServiceUpdateClient("BasicHttpBinding_IServiceUpdate");
 
-
-            String[] list = ServiceUpdate.getFileinfo();
-
-            string appPath = AppDomain.CurrentDomain.BaseDirectory;
-            Directory.CreateDirectory(appPath + "Update");
-            //string[] filename = Directory.GetFiles(appPath + "Update");
-
-            List<string> result = new List<string>();
-            for (int i = 0; i < list.Length; i++)
+            try
             {
-                result.Add(System.IO.Path.GetFileName(list[i]));
+                String[] list = ServiceUpdate.getFileinfo();
+
+
+
+
+                string appPath = AppDomain.CurrentDomain.BaseDirectory;
+                Directory.CreateDirectory(appPath + "Update");
+                //string[] filename = Directory.GetFiles(appPath + "Update");
+
+                List<string> result = new List<string>();
+                for (int i = 0; i < list.Length; i++)
+                {
+                    result.Add(System.IO.Path.GetFileName(list[i]));
+                }
+
+
+                txtblock.Text = "";
+
+                for (int i = 0; i < list.Length; i++)
+                {
+                    // MessageBox.Show(list[i]);
+                    // int l = list[0].Length;
+
+                    txtblock.Text += "-->>" + list[i] + "\n";
+                    //  MessageBox.Show(list[i].Substring(0, 3) + "0001" + list[i].Substring(7, list[i].Length - 7 ));
+                }
+
+
+
+                for (int i = 0; i < list.Length; i++)
+                {
+                    int lenght = ServiceUpdate.LenghtFile(list[i]);
+                    Stream file = ServiceUpdate.getFile(list[i]);
+                    byte[] bytes_file_w = new byte[lenght];
+                    file.Read(bytes_file_w, 0, lenght);
+
+                    //string path = @list[i].Substring(0, 3) + "0001" + list[i].Substring(7, list[i].Length - 7);
+                    //string path = @"c:\0001\test.txt";
+                    string path = @appPath + "Update\\" + result[i];
+                    FileStream file_w = File.Open(path, FileMode.Create);
+                    file_w.Write(bytes_file_w, 0, bytes_file_w.Length);
+
+                    // File.WriteAllBytes(@"c:\\MyDownloadedBooks\\" + "test.txt", bytes_file_w);
+                    file_w.Close();
+                }
+
             }
-
-
-            txtblock.Text = "";
-
-            for (int i = 0; i < list.Length; i++)
+            catch
             {
-                // MessageBox.Show(list[i]);
-                // int l = list[0].Length;
-                
-                txtblock.Text += "-->>" + list[i] + "\n";
-              //  MessageBox.Show(list[i].Substring(0, 3) + "0001" + list[i].Substring(7, list[i].Length - 7 ));
-            }
-
-
-
-            for (int i = 0; i < list.Length; i++)
-            {
-                int lenght = ServiceUpdate.LenghtFile(list[i]);
-                Stream file = ServiceUpdate.getFile(list[i]);
-                byte[] bytes_file_w = new byte[lenght];
-                file.Read(bytes_file_w, 0, lenght);
-
-                //string path = @list[i].Substring(0, 3) + "0001" + list[i].Substring(7, list[i].Length - 7);
-                //string path = @"c:\0001\test.txt";
-                string path = @appPath + "Update\\" + result[i];
-                FileStream file_w = File.Open(path, FileMode.Create);
-                file_w.Write(bytes_file_w, 0, bytes_file_w.Length);
-
-               // File.WriteAllBytes(@"c:\\MyDownloadedBooks\\" + "test.txt", bytes_file_w);
-                file_w.Close();
+                MessageBox.Show("Сервис не отвечает:");
             }
             ServiceUpdate.Close();
         }
